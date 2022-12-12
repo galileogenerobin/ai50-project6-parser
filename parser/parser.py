@@ -15,7 +15,10 @@ V -> "smiled" | "tell" | "were"
 """
 
 NONTERMINALS = """
-S -> N V
+S -> NP VP
+NP -> N | Det NP | Adj N
+VP -> V | V Adv | V PP
+PP -> P N
 """
 
 grammar = nltk.CFG.fromstring(NONTERMINALS + TERMINALS)
@@ -62,7 +65,9 @@ def preprocess(sentence):
     and removing any word that does not contain at least one alphabetic
     character.
     """
-    raise NotImplementedError
+    words = nltk.tokenize.word_tokenize(sentence)
+    return words
+    # raise NotImplementedError
 
 
 def np_chunk(tree):
